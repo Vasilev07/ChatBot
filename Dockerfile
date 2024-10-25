@@ -1,20 +1,24 @@
 # Use an official lightweight Node.js image
 FROM node:20-alpine
 
-# Set the working directory in the container
-WORKDIR .
+# Install Chromium and other dependencies
+RUN apk update && \
+    apk add --no-cache chromium nss freetype freetype-dev harfbuzz ttf-freefont
+
+RUN chromium-browser --version || echo "Chromium not found"
+
+# Set environment variable for puppeteer
+ENV PUPPETEER_SKIP_DOWNLOAD true
+ENV CHROME_PATH /usr/bin/chromium-browser
+
+# Set the working directory
+WORKDIR /app
 
 # Copy project files into the container
 COPY . .
 
 # Install Node.js dependencies
-RUN echo ls -la
-
 RUN npm install
-
-RUN apt-get install -y wget
-RUN wget -q https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-RUN apt-get install -y ./google-chrome-stable_current_amd64.deb
 
 # Command to start your application
 CMD ["node", "index.js"]
