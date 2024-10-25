@@ -2,6 +2,9 @@ const {Client, LocalAuth, NoAuth} = require('whatsapp-web.js');
 const qrcode = require('qrcode-terminal');
 
 const client = new Client({
+    puppeteer: {
+        args: ['--no-sandbox', '--disable-setuid-sandbox'],
+    },
     authStrategy: new LocalAuth({
         dataPath: '.test'
     })
