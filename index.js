@@ -21,13 +21,6 @@ client.on('ready', async () => {
     const findMe = await findChat("+359 88 486 5090");
 
     await findMe.sendMessage('!ping');
-
-
-    // await cryptoJit.sendMessage('Hello CryptoJit!');
-    // const cryptoJitChatId = cryptoJit.id;
-    //
-    // console.log("cryptoJit", cryptoJit);
-    // console.log("cryptoJitChatId", cryptoJitChatId)
 });
 
 client.on('message_create', async (msg) => {
@@ -36,7 +29,7 @@ client.on('message_create', async (msg) => {
     }
 
     if (msg.body === 'кеш' || msg.body === 'Kеш' || msg.body === 'cash') {
-        await msg.reply('Ivailo Jit Petrov');
+        await msg.reply('IJP');
     }
 
     if (msg.body === 'cena?' || msg.body === 'cena' || msg.body === 'Cena' || msg.body === 'btc') {
