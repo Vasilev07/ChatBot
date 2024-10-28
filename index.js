@@ -35,14 +35,19 @@ client.on('message_create', async (msg) => {
     if (msg.body === 'cena?' || msg.body === 'cena' || msg.body === 'Cena' || msg.body === 'btc') {
         console.log('kk', msg)
 
-        const data = await fetchData();
+        const btcData = await fetchBTCForMarkets();
 
-        console.log('DATA', data)
+        const binanceData = btcData.find((data) => {
+            return data.name === 'Binance'
+        });
+
+        console.log('DATA', binanceData)
 
         await msg.reply(`
-            BTC PRICE: ${data[0]['price_usd']} $,
-            percent_change_24h: ${data[0]['percent_change_24h']} %,
-            percent_change_1h: ${data[0]['percent_change_1h']} %,
+            base: [${binanceData['base']}]
+            source: [${binanceData['name']}]
+            time: [${binanceData['time']}]
+            price: ${binanceData['price_usd']}$
     `)
     }
 });
@@ -66,8 +71,8 @@ const findChat = async (chatName) => {
     return allChats.find(chat => chat.name === chatName);
 }
 
-const fetchData = async () => {
-    const apiUrlBTC = "https://api.coinlore.net/api/ticker/?id=90";
+const fetchBTCForMarkets = async () => {
+    const apiUrlBTC = "https://api.coinlore.net/api/coin/markets/?id=90";
 
     try {
         const response = await fetch(apiUrlBTC);
