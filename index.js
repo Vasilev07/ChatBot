@@ -35,15 +35,15 @@ client.on('message_create', async (msg) => {
     if (msg.body === 'cena?' || msg.body === 'cena' || msg.body === 'Cena' || msg.body === 'btc') {
         console.log('kk', msg)
 
-        const btcData = await fetchBTCForMarkets('btc');
+        const btcPrice = await fetchCoinPrice('btc');
 
-        const binanceBTCData = btcData.find((data) => {
+        const binanceBTCData = btcPrice.find((data) => {
             return data.name === 'Binance'
         });
 
-        const ethData = await fetchETHForMarkets('eth');
+        const ethPrice = await fetchCoinPrice('eth');
 
-        const binanceETHData = ethData.find((data) => {
+        const binanceETHData = ethPrice.find((data) => {
             return data.name === 'Binance'
         });
 
@@ -86,7 +86,7 @@ const findChat = async (chatName) => {
     return allChats.find(chat => chat.name === chatName);
 }
 
-const fetchBTCForMarkets = async (coin) => {
+const fetchCoinPrice = async (coin) => {
     const schema = {
         btc: {
             id: "90"
