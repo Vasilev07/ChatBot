@@ -49,17 +49,23 @@ client.on('message_create', async (msg) => {
 
         console.log('DATA', binanceBTCData)
 
+//         •⁠  ⁠*BTC* (Binance)
+//            - Time: 30/10/2024, 15:30:09
+//            - Price: $71,748.11
+
+// •⁠  ⁠*ETH* (Binance)
+//   - Time: 30/10/2024, 15:32:08
+//   - Price: $2,686.65
+
         await msg.reply(`
             -----------------------------------
-            base: [${binanceBTCData['base']}]
-            source: [${binanceBTCData['name']}]
-            time: [${getBulgarianTime(binanceBTCData['time'])}]
-            price: ${binanceBTCData['price_usd']}$
+            *${binanceBTCData['base']}* (${binanceBTCData['name']})
+                - Time: ${getBulgarianTime(binanceBTCData['time'])}
+                - Price: ${binanceBTCData['price_usd']}$
             -----------------------------------
-            base: [${binanceETHData['base']}]
-            source: [${binanceETHData['name']}]
-            time: [${getBulgarianTime(binanceETHData['time'])}]
-            price: ${binanceETHData['price_usd']}$
+            *${binanceETHData['base']}* (${binanceETHData['name']})
+                - Time: ${getBulgarianTime(binanceETHData['time'])}
+                - Price: ${binanceETHData['price_usd']}$
             -----------------------------------
     `)
     }
