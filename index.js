@@ -43,6 +43,10 @@ client.on('message_create', async (msg) => {
 
         const ethData = await fetchETHForMarkets('eth');
 
+        const binanceETHData = ethData.find((data) => {
+            return data.name === 'Binance'
+        });
+
         console.log('DATA', binanceBTCData)
 
         await msg.reply(`
@@ -51,10 +55,12 @@ client.on('message_create', async (msg) => {
             source: [${binanceBTCData['name']}]
             time: [${getBulgarianTime(binanceBTCData['time'])}]
             price: ${binanceBTCData['price_usd']}$
-
             -----------------------------------
-
-
+            base: [${binanceETHData['base']}]
+            source: [${binanceETHData['name']}]
+            time: [${getBulgarianTime(binanceETHData['time'])}]
+            price: ${binanceETHData['price_usd']}$
+            -----------------------------------
     `)
     }
 })
