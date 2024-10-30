@@ -35,43 +35,25 @@ client.on('message_create', async (msg) => {
     if (msg.body === 'cena?' || msg.body === 'cena' || msg.body === 'Cena' || msg.body === 'btc') {
         console.log('kk', msg)
 
-        const btcPrice = await fetchCoinPrice('btc');
+        const btcPrice = await fetchCoinPrice('BTCUSDT');
+        const ethPrice = await fetchCoinPrice('ETHUSDT');
 
-        const binanceBTCData = btcPrice.find((data) => {
-            return data.name === 'Binance'
-        });
-
-        const ethPrice = await fetchCoinPrice('eth');
-
-        const binanceETHData = ethPrice.find((data) => {
-            return data.name === 'Binance'
-        });
-
-        console.log('DATA', binanceBTCData)
-
-//         •⁠  ⁠*BTC* (Binance)
-//            - Time: 30/10/2024, 15:30:09
-//            - Price: $71,748.11
-
-// •⁠  ⁠*ETH* (Binance)
-//   - Time: 30/10/2024, 15:32:08
-//   - Price: $2,686.65
 
         await msg.reply(`
 -----------------------------------
-*${binanceBTCData['base']}* (${binanceBTCData['name']})
-- Time: *${getBulgarianTime(binanceBTCData['time'])}*
-- Price: *${binanceBTCData['price_usd']}$*
+*BTC* (Binance)
+- Time: *${getBulgarianTime(Date.now())}*
+- Price: *${btcPrice['price']}$*
 -----------------------------------
-*${binanceETHData['base']}* (${binanceETHData['name']})
-- Time: *${getBulgarianTime(binanceETHData['time'])}*
-- Price: *${binanceETHData['price_usd']}$*
+*ETH* (Binance)
+- Time: *${getBulgarianTime(Date.now())}*
+- Price: *${ethPrice['price']}$*
 -----------------------------------
     `.trim())
     }
 })
-const getBulgarianTime = (time) => {
-    return new Date(time * 1000).toLocaleString('en-GB', { timezone: 'Europe/Sofia' });
+const getBulgarianTime = (date) => {
+    return date.toLocaleString('en-GB', {timezone: 'Europe/Sofia'});
 };
 
 client.on('authenticated', () => {
@@ -92,24 +74,11 @@ const findChat = async (chatName) => {
     return allChats.find(chat => chat.name === chatName);
 }
 
-const fetchCoinPrice = async (coin) => {
-    const schema = {
-        btc: {
-            id: "90"
-        },
-        eth: {
-            id: "80"
-        }
-    }
-
-    if (!schema[coin].id) {
-        throw new Error('Invalid coin');
-    }
-
-    const apiUrlBTC = `https://api.coinlore.net/api/coin/markets/?id=${schema[coin].id}`;
+const fetchCoinPrice = async (coinCouple) => {
+    const apiUrl = `https://data-api.binance.vision/api/v3/ticker/price?symbol=${coinCouple}`;
 
     try {
-        const response = await fetch(apiUrlBTC);
+        const response = await fetch(apiUrl);
 
         if (!response.ok) {
             throw new Error(`Response status: ${response.status}`);
