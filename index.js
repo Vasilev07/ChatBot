@@ -60,12 +60,12 @@ client.on('message_create', async (msg) => {
         await msg.reply(`
             -----------------------------------
             *${binanceBTCData['base']}* (${binanceBTCData['name']})
-                - Time: ${getBulgarianTime(binanceBTCData['time'])}
-                - Price: ${binanceBTCData['price_usd']}$
+                - Time: *${getBulgarianTime(binanceBTCData['time'])}*
+                - Price: *${binanceBTCData['price_usd']}$*
             -----------------------------------
             *${binanceETHData['base']}* (${binanceETHData['name']})
-                - Time: ${getBulgarianTime(binanceETHData['time'])}
-                - Price: ${binanceETHData['price_usd']}$
+                - Time: *${getBulgarianTime(binanceETHData['time'])}*
+                - Price: *${binanceETHData['price_usd']}$*
             -----------------------------------
     `)
     }
