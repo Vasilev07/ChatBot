@@ -35,23 +35,32 @@ client.on('message_create', async (msg) => {
     if (msg.body === 'cena?' || msg.body === 'cena' || msg.body === 'Cena' || msg.body === 'btc') {
         console.log('kk', msg)
 
-        const btcData = await fetchBTCForMarkets();
+        const btcData = await fetchBTCForMarkets('btc');
 
-        const binanceData = btcData.find((data) => {
+        const binanceBTCData = btcData.find((data) => {
             return data.name === 'Binance'
         });
 
-        console.log('DATA', binanceData)
+        const ethData = await fetchETHForMarkets('eth');
+
+        console.log('DATA', binanceBTCData)
 
         await msg.reply(`
-            base: [${binanceData['base']}]
-            source: [${binanceData['name']}]
-            time: [${binanceData['time']}]
-            price: ${binanceData['price_usd']}$
+            -----------------------------------
+            base: [${binanceBTCData['base']}]
+            source: [${binanceBTCData['name']}]
+            time: [${getBulgarianTime(binanceBTCData['time'])}]
+            price: ${binanceBTCData['price_usd']}$
+
+            -----------------------------------
+
+
     `)
     }
-});
-
+})
+const getBulgarianTime = (time) => {
+    new Date(time * 1000).toLocaleString('en-GB', { timezone: 'Europe/Sofia' });
+};
 
 client.on('authenticated', () => {
     console.log('AUTHENTICATED');
@@ -71,8 +80,21 @@ const findChat = async (chatName) => {
     return allChats.find(chat => chat.name === chatName);
 }
 
-const fetchBTCForMarkets = async () => {
-    const apiUrlBTC = "https://api.coinlore.net/api/coin/markets/?id=90";
+const fetchBTCForMarkets = async (coin) => {
+    const schema = {
+        btc: {
+            id: "90"
+        },
+        eth: {
+            id: "80"
+        }
+    }
+
+    if (!schema[coin].id) {
+        throw new Error('Invalid coin');
+    }
+
+    const apiUrlBTC = `https://api.coinlore.net/api/coin/markets/?id=${schema[coin].id}`;
 
     try {
         const response = await fetch(apiUrlBTC);
