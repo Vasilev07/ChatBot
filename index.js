@@ -46,8 +46,8 @@ client.on('message_create', async (msg) => {
 - Price: *${btcPrice['price']}$*
 -----------------------------------
 *ETH* (Binance)
-- Time: *${getBulgarianTime(Date.now())}*
-- Price: *${ethPrice['price']}$*
+- Time: *${roundPrice(getBulgarianTime(Date.now()))}*
+- Price: *${roundPrice(ethPrice['price'])}$*
 -----------------------------------
     `.trim())
     }
@@ -55,6 +55,10 @@ client.on('message_create', async (msg) => {
 const getBulgarianTime = (date) => {
     return new Date(date).toLocaleString('en-GB', {timezone: 'Europe/Sofia'});
 };
+
+const roundPrice = (price) => {
+    return Math.round(price * 100) / 100;
+}
 
 client.on('authenticated', () => {
     console.log('AUTHENTICATED');
