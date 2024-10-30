@@ -65,7 +65,7 @@ client.on('message_create', async (msg) => {
     }
 })
 const getBulgarianTime = (time) => {
-    new Date(time).toLocaleString('en-GB', { timezone: 'Europe/Sofia' });
+    return new Date(time).toLocaleString('en-GB', { timezone: 'Europe/Sofia' });
 };
 
 client.on('authenticated', () => {
