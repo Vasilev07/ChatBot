@@ -58,15 +58,15 @@ client.on('message_create', async (msg) => {
 //   - Price: $2,686.65
 
         await msg.reply(`
-            -----------------------------------
-            *${binanceBTCData['base']}* (${binanceBTCData['name']})
-                - Time: *${getBulgarianTime(binanceBTCData['time'])}*
-                - Price: *${binanceBTCData['price_usd']}$*
-            -----------------------------------
-            *${binanceETHData['base']}* (${binanceETHData['name']})
-                - Time: *${getBulgarianTime(binanceETHData['time'])}*
-                - Price: *${binanceETHData['price_usd']}$*
-            -----------------------------------
+        -----------------------------------
+        *${binanceBTCData['base']}* (${binanceBTCData['name']})
+        - Time: *${getBulgarianTime(binanceBTCData['time'])}*
+        - Price: *${binanceBTCData['price_usd']}$*
+        -----------------------------------
+        *${binanceETHData['base']}* (${binanceETHData['name']})
+        - Time: *${getBulgarianTime(binanceETHData['time'])}*
+        - Price: *${binanceETHData['price_usd']}$*
+        -----------------------------------
     `)
     }
 })
