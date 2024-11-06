@@ -62,7 +62,7 @@ const getBulgarianTime = (date) => {
 };
 
 const roundPrice = (price) => {
-    return Math.round(price * 100) / 1000;
+    return Math.round(price * 100) / 10000;
 }
 
 client.on('authenticated', () => {
