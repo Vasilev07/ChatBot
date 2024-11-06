@@ -37,6 +37,7 @@ client.on('message_create', async (msg) => {
 
         const btcPrice = await fetchCoinPrice('BTCUSDT');
         const ethPrice = await fetchCoinPrice('ETHUSDT');
+        const dogePrice = await fetchCoinPrice('DOGEUSDT');
 
 
         await msg.reply(`
@@ -48,6 +49,10 @@ client.on('message_create', async (msg) => {
 *ETH* (Binance)
 - Time: *${getBulgarianTime(Date.now())}*
 - Price: *${roundPrice(ethPrice['price'])}$*
+-----------------------------------
+*ETH* (Binance)
+- Time: *${getBulgarianTime(Date.now())}*
+- Price: *${roundPrice(dogePrice['price'])}$*
 -----------------------------------
     `.trim())
     }
