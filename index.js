@@ -52,7 +52,7 @@ client.on('message_create', async (msg) => {
 -----------------------------------
 *ETH* (Binance)
 - Time: *${getBulgarianTime(Date.now())}*
-- Price: *${roundPrice(dogePrice['price'])}$*
+- Price: *${dogePrice['price']}$*
 -----------------------------------
     `.trim())
     }
