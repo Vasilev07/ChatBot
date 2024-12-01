@@ -32,7 +32,7 @@ client.on('message_create', async (msg) => {
         await msg.reply('IJP');
     }
 
-    if (msg.body === 'cena?' || msg.body === 'cena' || msg.body === 'Cena' || msg.body === 'btc') {
+    if (msg.body === 'cena?' || msg.body === 'cena' || msg.body === 'Cena' || msg.body === 'Cenorazpis molq' || msg.body === 'btc') {
         console.log('kk', msg)
 
         const btcPrice = await fetchCoinPrice('BTCUSDT');
